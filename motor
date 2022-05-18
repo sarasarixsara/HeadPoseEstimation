@@ -1,0 +1,33 @@
+from nntplib import GroupInfo
+import RPi.GPIO as GPIO
+from time import sleep
+GPIO.setmode(GPIO.BOARD)
+
+motorA_1=11
+motorA_2=13
+
+GPIO.setup(motorA_1, GPIO.OUT)
+GPIO.setup(motorA_2,GPIO.OUT)
+
+def MoverMotor(x):
+    if x==0:
+        GPIO.output(motorA_1,1)
+        GPIO.output(motorA_2,0)
+    elif x==1:
+        GPIO.output(motorA_1,0)
+        GPIO.output(motorA_2,1)
+    else:
+        GPIO.output(motorA_1,0)
+        GPIO.output(motorA_2,0)
+
+try:
+    while True:
+        MoverMotor(1)
+        sleep(5)
+        MoverMotor(5)
+        sleep(5)
+        MoverMotor(0)
+        sleep(5)
+except KeyboardInterrupt:
+    GPIO.cleanup()
+
